@@ -1,0 +1,524 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "CricStreamer API Reference",
+    "description": "This documentation is for cricstreamer API Reference. Please don't use it directly.",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "cric-streamer.cyclic.app",
+  "servers": [
+    {
+      "url": "cric-streamer.cyclic.app"
+    },
+    {
+      "url": "localhost:5000"
+    }
+  ],
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "API for users to allow in the system"
+    },
+    {
+      "name": "Image Upload",
+      "description": "API for users to upload images in the system"
+    }
+  ],
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/user/login": {
+      "post": {
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "provide all the details of the user",
+            "schema": {
+              "$ref": "#/definitions/LoginInfo"
+            }
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Login all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/user/signup": {
+      "post": {
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "provide all the details of the user",
+            "schema": {
+              "$ref": "#/definitions/SignUpInfo"
+            }
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Create account of all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/user/signup/verify": {
+      "post": {
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "provide all the details of the user",
+            "schema": {
+              "required": ["userId", "otp"],
+              "properties": {
+                "userId": {
+                  "type": "string"
+                },
+                "otp": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/user/sendOTP": {
+      "post": {
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "please insert the email.",
+            "schema": {
+              "required": ["email"],
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/user/changePassword": {
+      "post": {
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "please insert the userId and password .",
+            "schema": {
+              "required": ["userId", "password"],
+              "properties": {
+                "userId": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/user/verifyEmail": {
+      "post": {
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "please insert the email .",
+            "schema": {
+              "required": ["email"],
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/user/resetPassword": {
+      "post": {
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "please insert the userId and password .",
+            "schema": {
+              "required": ["email", "password"],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+
+
+
+    "/api/upload/image": {
+      "post": {
+        "consumes": [
+          "application/json",
+          "multipart/form-data",
+          "application/x-www-form-urlencoded",
+          "binary"
+        ],
+        "parameters": [
+          {
+            "name": "auth-token",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          
+          {
+            "name": "image",
+            "required": true,
+            "in": "formData",
+            "type": "file",
+            "description": "The file to upload"
+          }
+        ],
+        "tags": ["Image Upload"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/upload/images": {
+      "post": {
+        "consumes": [
+          "application/json",
+          "multipart/form-data"
+          
+        ],
+        "parameters": [
+          {
+            "name": "auth-token",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          
+          {
+            "name": "image",
+            "required": true,
+            "in": "formData",
+            "type": "file",
+            "allowMultiple": true,
+            "description": "The file to upload"
+          }
+        ],
+        "tags": ["Image Upload"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+
+
+
+
+  },
+  "definitions": {
+    "LoginInfo": {
+      "required": ["email", "password"],
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "SignUpInfo": {
+      "required": ["name", "email", "password"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "AddUserInfo": {
+      "required": ["username", "email", "password"],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "ChangeUserInfo": {
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "AddAddress": {
+      "required": ["address", "city", "province"],
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phoneNo": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "province": {
+          "type": "string"
+        },
+        "is_default": {
+          "type": "boolean"
+        }
+      }
+    },
+    "AddStoreInfo": {
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "AddProductInfo": {
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "color": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sizes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "price": {
+          "type": "integer"
+        },
+        "stock": {
+          "type": "integer"
+        },
+        "category": {
+          "type": "string"
+        },
+        "subcategory": {
+          "type": "string"
+        },
+        "customizationPrice": {
+          "type": "integer"
+        },
+        "customization": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "range": {
+                "type": "object",
+                "properties": {
+                  "start": {
+                    "type": "integer"
+                  },
+                  "end": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "AddOrderInfo": {
+      "properties": {
+        "shippingAddress": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "product": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string"
+              },
+              "size": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "string"
+              },
+              "customization": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "range": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Users": {
+      "type": "array",
+      "$ref": "#/definitions/User"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
